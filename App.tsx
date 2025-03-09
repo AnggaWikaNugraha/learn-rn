@@ -15,7 +15,13 @@ export default function App() {
     <Stack.Navigator
       initialRouteName="Home"
       screenOptions={{
-        headerStyle: { backgroundColor: 'tomato' },
+        headerStyle: {
+          backgroundColor: '#f4511e',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
       }}
     >
       <Stack.Screen
@@ -29,6 +35,13 @@ export default function App() {
         component={DetailsScreen}
         options={({ route }) => ({
           title: route.params.itemId?.toString() ?? 'Details',
+          headerStyle: {
+            backgroundColor: '#f4511e',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
         })}
       />
     </Stack.Navigator>

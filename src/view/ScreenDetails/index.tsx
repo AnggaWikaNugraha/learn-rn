@@ -13,9 +13,14 @@ export const DetailsScreen = ({ navigation, route }: DetailsScreenProps) => {
 
       <Button
         onPress={() => {
-          // Pass params back to home screen
-          navigation.popTo('Home', { itemId: 1 });
-        }}
+            navigation.navigate('Home', { itemId: 1 }); // ✅ Navigasi ke Home dengan params
+          
+            // setTimeout(() => {
+            //   navigation.setOptions({ title: 'Updated!' }); // ✅ Update title setelah pindah
+            // }, 100); // Tunggu sedikit sebelum update
+
+          }}
+          
       >
         Done
       </Button>
