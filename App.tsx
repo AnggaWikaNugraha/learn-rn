@@ -6,6 +6,7 @@ import { createNativeStackNavigator, NativeStackNavigationProp, NativeStackScree
 import { HomeScreen } from './src/view/ScreenHome';
 import { DetailsScreen } from './src/view/ScreenDetails';
 import { ScreenParamsList } from './src/type/ScreenParamsList';
+import { Button } from '@react-navigation/elements';
 
 
 const Stack = createNativeStackNavigator<ScreenParamsList>();
@@ -27,7 +28,12 @@ export default function App() {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{ title: 'Overview' }}
+        options={{
+          // Add a placeholder button without the `onPress` to avoid flicker
+          headerRight: () => <Button>Update count</Button>,
+          headerBackTitle: 'Custom Back',
+          headerBackTitleStyle: { fontSize: 30 },
+        }}
       />
       <Stack.Screen
         name="Details"

@@ -11,6 +11,9 @@ export const HomeScreen = ({ route }: HomeScreenProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<ScreenParamsList>>();
   const [itemID, setitemID] = useState<number>()
 
+  const [count, setCount] = useState(0);
+
+
   useEffect(() => {
     if (route.params?.itemId) {
       // Post updated, do something with `route.params.post`
@@ -19,8 +22,19 @@ export const HomeScreen = ({ route }: HomeScreenProps) => {
     }
   }, [route.params?.itemId]);
 
+  useEffect(() => {
+    // Use `setOptions` to update the button that we previously specified
+    // Now the button includes an `onPress` handler to update the count
+    navigation.setOptions({
+      headerRight: () => (
+        <Button onPress={() => setCount((c) => c + 1)}>Update count</Button>
+      ),
+    });
+  }, [navigation]);
+
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 15 }}>
       <Text>Home Screen {itemID}</Text>
       <Button onPress={() => {
         navigation.navigate('Details', {
@@ -30,6 +44,9 @@ export const HomeScreen = ({ route }: HomeScreenProps) => {
       }}>
         Go to Details
       </Button>
+      <Button onPress={() => setCount((c) => c + 1)}>Update count here ss</Button>
+
+      <Text>Count: {count}</Text>
     </View>
   );
 };
