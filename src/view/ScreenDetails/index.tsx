@@ -8,8 +8,8 @@ type DetailsScreenProps = NativeStackScreenProps<ScreenParamsList, "Details">;
 export const DetailsScreen = ({ navigation, route }: DetailsScreenProps) => {
   return (
     <View>
-      <Text>Item ID: {route.params.itemId}</Text>
-      <Text>Other Param: {route.params.otherParam}</Text>
+      <Text>Item ID: {route?.params?.itemId}</Text>
+      <Text>Other Param: {route?.params?.otherParam}</Text>
 
       <Button
         onPress={() => {
