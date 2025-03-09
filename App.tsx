@@ -17,9 +17,12 @@ import { SignUpScreen } from './src/view/ScreenSignup';
 import { useAuth } from './src/view/ScreenSignin/hooks/UseAuth';
 import { AuthProvider } from './src/view/ScreenSignin/state/context';
 import { HomeMainScreen } from './src/view/ScreenMainHome';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Demo } from './src/view/ScreenDemo';
 
 
 const Stack = createNativeStackNavigator<ScreenParamsList>();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
 
@@ -38,6 +41,7 @@ const WrapApp = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
+          headerShown : false,
           headerStyle: {
             backgroundColor: '#f4511e',
           },
@@ -55,6 +59,9 @@ const WrapApp = () => {
           </>
         ) : (
           <>
+
+            <Stack.Screen name="Home" component={HomeTabs} />
+
             <Stack.Screen name="SignIn" component={SignInScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
           </>
