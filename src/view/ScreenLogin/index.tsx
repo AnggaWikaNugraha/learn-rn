@@ -13,7 +13,7 @@ export const LoginScreen = () => {
         <View style={{ display: 'flex', flexDirection: 'column', gap: 15}}>
             <Text>🔐 Login Screen</Text>
             <Button onPress={() => navigation?.navigate('Register')}>Register</Button>
-            <Button onPress={() => navigation?.navigate('Home', {itemId : 1})}>Home</Button>
+            <Button onPress={() => navigation?.replace('Home', {itemId : 1})}>Home</Button>
         </View>
     );
 }
