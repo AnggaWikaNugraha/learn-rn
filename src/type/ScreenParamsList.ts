@@ -3,5 +3,9 @@ export type ScreenParamsList = {
     Details: { itemId?: number; otherParam?: string }; // Perlu parameter
     Login: undefined; // Tidak butuh parameter
     Register: undefined; // Tidak butuh parameter
+    Profile: undefined;
+    Settings: undefined;
+    SignIn: undefined;
+    SignUp: undefined;
   };
   

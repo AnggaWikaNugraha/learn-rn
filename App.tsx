@@ -1,6 +1,6 @@
 // In App.js in a new project
 
-import * as React from 'react';
+import React, { useState } from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import { HomeScreen } from './src/view/ScreenHome';
@@ -10,52 +10,34 @@ import { Button } from '@react-navigation/elements';
 import { LoginScreen } from './src/view/ScreenLogin';
 import { RegisterScreen } from './src/view/ScreenRegister';
 import { HomeTabs } from './src/atoms/BottomNavigations';
+import { ProfileScreen } from './src/view/ScreenProfile';
+import { SettingsScreen } from './src/view/ScreenSettings';
+import { SignInScreen } from './src/view/ScreenSignin';
+import { SignUpScreen } from './src/view/ScreenSignup';
+import { useAuth } from './src/view/ScreenSignin/hooks/UseAuth';
+import { AuthProvider } from './src/view/ScreenSignin/state/context';
+import { HomeMainScreen } from './src/view/ScreenMainHome';
 
 
 const Stack = createNativeStackNavigator<ScreenParamsList>();
 
 export default function App() {
-  return <NavigationContainer>
-    <Stack.Navigator
-      initialRouteName="Login"
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: '#f4511e',
-        },
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
-        },
-      }}
-    >
 
-      {/* Auth Group */}
-      <Stack.Group screenOptions={{ headerStyle: { backgroundColor: 'lightblue' } }}>
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Register" component={RegisterScreen} />
-        </Stack.Group>
+  return (
+    <AuthProvider>
+      <WrapApp />
+    </AuthProvider>
+  )
+}
 
-        <Stack.Group screenOptions={{ headerStyle: { backgroundColor: 'lightgreen' } }}>
-          <Stack.Screen name="Home" component={HomeTabs} options={{ headerShown: false }} />
-          {/* <Stack.Screen name="Details" component={DetailsScreen} /> */}
-        </Stack.Group>
+const WrapApp = () => {
+  const { state } = useAuth();
 
-      {/* <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          // Add a placeholder button without the `onPress` to avoid flicker
-          headerRight: () => <Button>Update count</Button>,
-          headerBackTitle: 'Custom Back',
-          headerBackTitleStyle: { fontSize: 30 },
-        }}
-      />
-      <Stack.Screen
-        name="Details"
-        initialParams={{ itemId: 2 }}
-        component={DetailsScreen}
-        options={({ route }) => ({
-          title: route.params.itemId?.toString() ?? 'Details',
+  console.log(state)
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
           headerStyle: {
             backgroundColor: '#f4511e',
           },
@@ -63,9 +45,22 @@ export default function App() {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
-        })}
-      /> */}
+        }}
+      >
+        {state.userToken ? (
+          <>
+            <Stack.Screen name="Home" component={HomeMainScreen} />
+            <Stack.Screen name="Profile" component={ProfileScreen} />
+            <Stack.Screen name="Settings" component={SettingsScreen} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="SignIn" component={SignInScreen} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} />
+          </>
+        )}
 
-    </Stack.Navigator>
-  </NavigationContainer>;
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
