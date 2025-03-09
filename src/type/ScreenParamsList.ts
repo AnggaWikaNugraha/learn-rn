@@ -1,5 +1,5 @@
 export type ScreenParamsList = {
-    Home: undefined; // Tidak butuh parameter
+    Home: { itemId?: number}; // Tidak butuh parameter
     Details: { itemId: number; otherParam: string }; // Perlu parameter
   };
   
