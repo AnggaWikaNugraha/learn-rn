@@ -23,6 +23,7 @@ import { ModalScreenProfile } from './src/view/ModalProfile';
 import './gesture-handler';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import CustomDrawerContent from './src/atoms/Drawer';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 const Stack = createNativeStackNavigator<ScreenParamsList>();
 const Tab = createBottomTabNavigator();
@@ -44,6 +45,7 @@ const WrapApp = () => {
   // Buat Navigator
   const Stack = createNativeStackNavigator();
   const Drawer = createDrawerNavigator();
+  const Tab = createMaterialTopTabNavigator();
 
   function AuthStack() {
     return (
@@ -63,9 +65,18 @@ const WrapApp = () => {
     );
   }
 
+  function MyTopTabs() {
+    return (
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeMainScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
+      </Tab.Navigator>
+    );
+  }
+
   return (
     <NavigationContainer>
-      {!state.userToken ? <DrawerNavigator /> : <AuthStack />}
+      {!state.userToken ? <MyTopTabs /> : <AuthStack />}
     </NavigationContainer>
   )
 }
