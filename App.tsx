@@ -20,7 +20,9 @@ import { HomeMainScreen } from './src/view/ScreenMainHome';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Demo } from './src/view/ScreenDemo';
 import { ModalScreenProfile } from './src/view/ModalProfile';
-
+import './gesture-handler';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import CustomDrawerContent from './src/atoms/Drawer';
 
 const Stack = createNativeStackNavigator<ScreenParamsList>();
 const Tab = createBottomTabNavigator();
@@ -34,46 +36,36 @@ export default function App() {
   )
 }
 
+
 const WrapApp = () => {
   const { state } = useAuth();
 
   console.log(state)
+  // Buat Navigator
+  const Stack = createNativeStackNavigator();
+  const Drawer = createDrawerNavigator();
+
+  function AuthStack() {
+    return (
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
+      </Stack.Navigator>
+    );
+  }
+
+  function DrawerNavigator() {
+    return (
+      <Drawer.Navigator drawerContent={(props) => <CustomDrawerContent {...props} />}>
+        <Drawer.Screen name="Home" component={HomeMainScreen} />
+        <Drawer.Screen name="Profile" component={ProfileScreen} />
+      </Drawer.Navigator>
+    );
+  }
+
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-          headerStyle: {
-            backgroundColor: '#f4511e',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
-      >
-        {state.userToken ? (
-          <>
-            <Stack.Screen name="Home" component={HomeMainScreen} />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
-            <Stack.Screen name="Settings" component={SettingsScreen} />
-          </>
-        ) : (
-          <>
-
-            <Stack.Screen name="Home" component={HomeTabs} />
-
-            <Stack.Screen name="SignIn" component={SignInScreen} />
-            <Stack.Screen name="SignUp" component={SignUpScreen} />
-
-            <Stack.Group screenOptions={{ presentation: 'modal' }}>
-              <Stack.Screen name="ModalScreenProfile" component={ModalScreenProfile} />
-            </Stack.Group>
-
-          </>
-        )}
-
-      </Stack.Navigator>
+      {!state.userToken ? <DrawerNavigator /> : <AuthStack />}
     </NavigationContainer>
   )
 }
