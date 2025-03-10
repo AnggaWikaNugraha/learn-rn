@@ -7,5 +7,6 @@ export type ScreenParamsList = {
     Settings: undefined;
     SignIn: undefined;
     SignUp: undefined;
+    ModalScreenProfile: undefined;
   };
   

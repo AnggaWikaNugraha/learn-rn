@@ -45,6 +45,7 @@ export const HomeScreen = ({ route }: HomeScreenProps) => {
         Go to Details
       </Button>
       <Button onPress={() => setCount((c) => c + 1)}>Update count here ss</Button>
+      <Button onPress={() => navigation.navigate('ModalScreenProfile')}>Open Modal</Button>
 
       <Text>Count: {count}</Text>
     </View>

@@ -19,6 +19,7 @@ import { AuthProvider } from './src/view/ScreenSignin/state/context';
 import { HomeMainScreen } from './src/view/ScreenMainHome';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Demo } from './src/view/ScreenDemo';
+import { ModalScreenProfile } from './src/view/ModalProfile';
 
 
 const Stack = createNativeStackNavigator<ScreenParamsList>();
@@ -41,7 +42,7 @@ const WrapApp = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerShown : false,
+          headerShown: false,
           headerStyle: {
             backgroundColor: '#f4511e',
           },
@@ -64,6 +65,11 @@ const WrapApp = () => {
 
             <Stack.Screen name="SignIn" component={SignInScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
+
+            <Stack.Group screenOptions={{ presentation: 'modal' }}>
+              <Stack.Screen name="ModalScreenProfile" component={ModalScreenProfile} />
+            </Stack.Group>
+
           </>
         )}
 
