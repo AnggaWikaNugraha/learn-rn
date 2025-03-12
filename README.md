@@ -1,4 +1,5 @@
 # STACK
+-   api (axios, swr, mock msw)
 -   auth credentials with mocking API ( reack-hook-form , Yup, redux-toolkit)
 -   
 

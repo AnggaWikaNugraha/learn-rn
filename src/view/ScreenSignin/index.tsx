@@ -9,6 +9,7 @@ import FormMessage from "../../atoms/FormMessage";
 import Button from "../../atoms/Button";
 import Text from "../../atoms/Text";
 import TextInput from "../../atoms/TextInput";
+import { useLogin } from "./hooks/useLogin";
 
 export const SignInScreen = () => {
 
@@ -38,8 +39,30 @@ export const SignInScreen = () => {
   }, [setValue]);
 
   const onSubmit = useCallback((data: ISchema) => {
-    
+    const { email, password } = data;
+    if (email) {
+      login?.trigger({
+        email,
+        password,
+      });
+    }
   }, []);
+
+  const login = useLogin({
+    config: {
+      onSuccess: (data: any) => {
+
+        const {
+
+        } = data;
+
+      },
+      onError: (error: any) => {
+
+      },
+
+    },
+  });
 
   return (
     <SafeAreaView style={styles.container}>
