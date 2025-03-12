@@ -38,7 +38,7 @@ export const SignInScreen = () => {
   }, [setValue]);
 
   const onSubmit = useCallback((data: ISchema) => {
-    console.log()
+    
   }, []);
 
   return (

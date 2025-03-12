@@ -24,6 +24,9 @@ import CustomDrawerContent from './src/atoms/Drawer';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import messaging from '@react-native-firebase/messaging';
 import { Alert, PermissionsAndroid, Platform } from 'react-native';
+import { Provider } from 'react-redux';
+import { persistor, store } from './src/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const Stack = createNativeStackNavigator<ScreenParamsList>();
 const Tab = createBottomTabNavigator();
@@ -70,11 +73,19 @@ export default function App() {
   //   return unsubscribe;
   // }, []);
 
+  console.log(store?.getState())
 
   return (
-    <AuthProvider>
-      <WrapApp />
-    </AuthProvider>
+    <Provider store={store}>
+      {[
+        <PersistGate loading={null} persistor={persistor} />,
+        <AuthProvider>
+          <WrapApp />
+        </AuthProvider>
+      ].reduceRight((prev, current) =>
+        React.cloneElement(current, {}, prev),
+      )}
+    </Provider>
   )
 }
 
@@ -82,7 +93,6 @@ export default function App() {
 const WrapApp = () => {
 
   const { state } = useAuth();
-  console.log(state)
 
   // Buat Navigator
   const Stack = createNativeStackNavigator();
